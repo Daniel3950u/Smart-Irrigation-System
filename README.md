@@ -1,67 +1,26 @@
-# Smart Irrigation System Based on Soil Moisture
+# Smart Irrigation System
 
-Academic project developed as part of the **Electrical and Electronic Measurements** course at the **Universidad Autónoma del Estado de Morelos (UAEM)**.
+Academic team project for Electrical and Electronic Measurements at Universidad Autónoma del Estado de Morelos (UAEM), 2025. Yoltzin Daniel Figueroa Urzua participated as a team member.
 
-The project consists of the design and simulation of an automated irrigation system that monitors soil-moisture conditions and activates a water pump when the moisture level falls below a defined threshold.
+## Scope
 
-## Project Objective
+Arduino UNO simulation in Tinkercad for an irrigation controller for basil. A potentiometer on A0 represents soil moisture and a transistor-driven DC motor on pin 8 represents the pump. The report documents simulated measurements and candidate parts for future physical implementation.
 
-Design, simulate, and document an automatic irrigation system using **Arduino UNO** and **Tinkercad**, with a control algorithm that regulates watering according to soil-moisture conditions.
+## Code and operation
 
-## How It Works
+Open `src/smart_irrigation/smart_irrigation.ino` in the Arduino IDE and select Arduino UNO. This portfolio sketch is adapted from the academic report, preserving its logic with simplified formatting and equivalent conditionals.
 
-1. A soil-moisture sensor is represented in the simulation by a potentiometer.
-2. Arduino reads the analog input and converts it into a moisture percentage.
-3. The program compares the measured value with a predefined moisture threshold.
-4. If the soil is too dry, Arduino activates a DC motor that represents the water pump.
-5. Irrigation duration is adjusted according to the detected moisture deficit.
+- Simulated moisture: integer mapping of ADC values 0–1023 to 0–100.
+- Trigger: moisture at or below 30%, after the waiting interval.
+- Reference moisture: 60%.
+- Watering duration: 3000 ms + 300 ms per percentage point of deficit.
+- Minimum wait after watering: 30000 ms. The first watering also waits 30 seconds after startup.
+- Serial monitor: 9600 baud. Sampling delay: 200 ms.
 
-## Technologies and Components
+At 20% simulated moisture, calculated duration is 15000 ms. This is a reference calculation, not a new measurement.
 
-- Arduino UNO R3
-- C/C++ (Arduino)
-- Tinkercad
-- Soil-moisture sensor / potentiometer
-- DC motor / water pump
-- TIP120 transistor or IRLZ44N MOSFET
-- 1N4007 diode
-- Breadboard and supporting electronic components
+## Limitations
 
-## Main Features
+The potentiometer percentage is not calibrated soil moisture. Watering time is an open-loop estimate, not a guarantee that moisture reaches 60%. A physical pump needs a suitable driver, power supply, common ground and flyback protection. The report proposes TIP120 or IRLZ44N and 1N4007; component suitability and sensor calibration require verification for a real build.
 
-- Soil-moisture monitoring
-- Threshold-based automatic irrigation
-- Pump control through Arduino
-- Irrigation time proportional to moisture deficit
-- Electronic component selection for future physical implementation
-- Simulation and electrical measurements in Tinkercad
-
-## Repository Structure
-
-```text
-Smart-Irrigation-System/
-├── README.md
-├── src/
-│   └── smart_irrigation.ino        # Arduino source code (coming next)
-└── images/                         # Circuit and simulation images (coming next)
-```
-
-## Project Status
-
-The system was successfully designed and simulated in **Tinkercad** as an academic prototype. The project documentation also includes the selection of equivalent physical components for a possible future implementation.
-
-## Future Improvements
-
-- Build the physical prototype
-- Replace the simulated potentiometer with a capacitive soil-moisture sensor
-- Add real-time monitoring and data logging
-- Implement a display or wireless interface
-- Improve calibration for different plants and soil conditions
-
-## Author
-
-**Yoltzin Daniel Figueroa Urzua**  
-Electrical-Electronic Engineering Student  
-Universidad Autónoma del Estado de Morelos (UAEM)
-
-> This repository presents the technical work developed for academic and portfolio purposes.
+The original project was simulated in Tinkercad. This portfolio revision was reviewed statically; Arduino compilation and a new simulation were not performed during publication. Physical deployment and water savings are not claimed.
